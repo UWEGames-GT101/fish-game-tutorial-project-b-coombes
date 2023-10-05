@@ -20,7 +20,7 @@ class MyASGEGame(pyasge.ASGEGame):
             settings (pyasge.GameSettings): The game settings
         """
         pyasge.ASGEGame.__init__(self, settings)
-        self.renderer.setClearColour(pyasge.COLOURS.CORNFLOWER)
+        self.renderer.setClearColour(pyasge.COLOURS.LIGHTCORAL)
 
         # create a game data object, we can store all shared game content here
         self.data = GameData()
@@ -55,7 +55,12 @@ class MyASGEGame(pyasge.ASGEGame):
         self.initFish()
 
     def initBackground(self) -> bool:
-        pass
+        if self.data.background.loadTexture("/data/images/background.png"):
+            # loaded, so make sure this gets rendered first
+            self.data.background.z_order = -100
+            return True
+        else:
+            return False
 
     def initFish(self) -> bool:
         pass
